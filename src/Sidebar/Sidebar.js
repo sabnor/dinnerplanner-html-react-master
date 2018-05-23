@@ -51,7 +51,7 @@ class Sidebar extends Component {
         Total number of guests: {this.state.numberOfGuests}
         </p>
         <p>
-        Dish name: <Sidebar model/>
+        Dish name: 
         </p>
         <br/>
         <p>
