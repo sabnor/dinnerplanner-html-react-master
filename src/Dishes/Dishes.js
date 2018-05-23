@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Dishes.css';
-// Alternative to passing the moderl as the component property,
+// Alternative to passing the moderl as the component property, 
 // we can import the model instance directly
 import {modelInstance} from '../data/DinnerModel';
 
@@ -9,13 +9,13 @@ class Dishes extends Component {
   constructor(props) {
     super(props);
     // We create the state to store the various statuses
-    // e.g. API data loading or error
+    // e.g. API data loading or error 
     this.state = {
       status: 'INITIAL'
     }
   }
 
-  // this methods is called by React lifecycle when the
+  // this methods is called by React lifecycle when the 
   // component is actually shown to the user (mounted to DOM)
   // that's a good place to call the API and get the data
   componentDidMount = () => {
@@ -35,7 +35,7 @@ class Dishes extends Component {
 
   render() {
     let dishesList = null;
-
+    
     // depending on the state we either generate
     // useful message to the user or show the list
     // of returned dishes
@@ -45,7 +45,11 @@ class Dishes extends Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map((dish) =>
-          <li key={dish.id}>{dish.title}</li>
+          <div>
+
+            <h3 key={dish.id}>{dish.title}</h3>
+
+          </div>
         )
         break;
       default:
@@ -56,9 +60,9 @@ class Dishes extends Component {
     return (
       <div className="Dishes">
         <h3>Dishes</h3>
-        <u l>
+        <div>
           {dishesList}
-        </ul>
+        </div>
       </div>
     );
   }
