@@ -16,14 +16,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App-header fluid">
           <h1 className="App-title">{this.state.title}</h1>
-          
+        </header>
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome}/>
           <Route path="/search" render={() => <SelectDish model={modelInstance}/>}/>
         
-        </header>
+        
       </div>
     );
   }
