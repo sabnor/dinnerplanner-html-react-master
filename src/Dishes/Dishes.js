@@ -5,6 +5,7 @@ import './Dishes.css';
 // Alternative to passing the moderl as the component property, 
 // we can import the model instance directly
 import {modelInstance} from '../data/DinnerModel';
+import { Link } from 'react-router-dom';
 
 
 class Dishes extends Component {
@@ -52,7 +53,9 @@ class Dishes extends Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map((dish) =>
+        
           <div key={dish.id} className="col-md-4">
+          <Link to={"/dish/" + dish.id}>
             <div className="card mb-4 box-shadow">
               <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={"https://spoonacular.com/recipeImages/"+ dish.image} data-holder-rendered="true"/>
               <div className="card-body">
@@ -64,6 +67,7 @@ class Dishes extends Component {
             {/* <h3 key={dish.id}>{dish.title}</h3> */}
 
             </div>
+          </Link>
           </div>
         )
         break;
