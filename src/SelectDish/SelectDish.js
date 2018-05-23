@@ -33,12 +33,14 @@ class SelectDish extends Component {
         <p className="lead text-muted">Search for what food u want mate.</p>
       <form>
         <div className="form-row">
-          <select value={this.state.value} onChange={this.handleChange}>
+        <div className="col">
+          <select class="form-control" value={this.state.value} onChange={this.handleChange}>
             <option value="starter">Starter</option>
             <option value="side dish">Side dish</option>
             <option value="main course">Main course</option>
             <option value="dessert">Dessert</option>
           </select>
+          </div>
 
           <div className="col">
             <input type="text" value={this.state.value} onChange={this.handleChange} className="form-control" placeholder="Filter by dishname"></input>
