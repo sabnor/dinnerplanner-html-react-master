@@ -45,7 +45,11 @@ class Dishes extends Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map((dish) =>
-          <li key={dish.id}>{dish.title}</li>
+          <div>
+
+            <h3 key={dish.id}>{dish.title}</h3>
+
+          </div>
         )
         break;
       default:
@@ -56,9 +60,9 @@ class Dishes extends Component {
     return (
       <div className="Dishes">
         <h3>Dishes</h3>
-        <ul>
+        <div>
           {dishesList}
-        </ul>
+        </div>
       </div>
     );
   }
