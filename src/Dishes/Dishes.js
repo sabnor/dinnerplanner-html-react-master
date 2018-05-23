@@ -17,6 +17,10 @@ class Dishes extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    this.componentDidMount()
+  }
+
   // this methods is called by React lifecycle when the 
   // component is actually shown to the user (mounted to DOM)
   // that's a good place to call the API and get the data
@@ -34,6 +38,7 @@ class Dishes extends Component {
       })
     })
   }
+
 
   render() {
     let dishesList = null;
