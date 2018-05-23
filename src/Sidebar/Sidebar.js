@@ -4,14 +4,15 @@ class Sidebar extends Component {
 
   constructor(props) {
     super(props)
-    
+    console.log(this.props.model)
+
     // we put on state the properties we want to use and modify in the component
     this.state = {
       numberOfGuests: this.props.model.getNumberOfGuests()
     }
   }
 
-  // this methods is called by React lifecycle when the 
+  // this methods is called by React lifecycle when the
   // component is actually shown to the user (mounted to DOM)
   // that's a good place to setup model observer
   componentDidMount() {
@@ -37,14 +38,24 @@ class Sidebar extends Component {
     this.props.model.setNumberOfGuests(+e.target.value)
   }
 
+
+
+
   render() {
     return (
       <div className="Sidebar">
-        <h3>This is the sidebar</h3>
+        <h3>My dinner</h3>
         <p>
         People: <input value={this.state.numberOfGuests} onChange={this.onNumberOfGuestsChanged}/>
         <br/>
         Total number of guests: {this.state.numberOfGuests}
+        </p>
+        <p>
+        Dish name: <Sidebar model/>
+        </p>
+        <br/>
+        <p>
+        Cost:
         </p>
       </div>
     );
