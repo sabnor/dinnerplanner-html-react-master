@@ -1,3 +1,5 @@
+//Child to SelectDish-component
+
 import React, {Component} from 'react';
 import './Dishes.css';
 // Alternative to passing the moderl as the component property, 
