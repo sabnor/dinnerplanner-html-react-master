@@ -1,5 +1,5 @@
 const httpOptions = {
-  headers: {'X-Mashape-Key': 'Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB'}
+  headers: {'X-Mashape-Key': 'k2x8zD2tl2mshzMW9pmsxLv8y7Elp1bJxTJjsnm11xhlvs7qCX'}
 };
 
 const DinnerModel = function () {
