@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 class Dishes extends Component {
   constructor(props) {
     super(props);
+    console.log("dishes component init");
+    
     // We create the state to store the various statuses
     // e.g. API data loading or error 
     this.state = {
@@ -18,8 +20,13 @@ class Dishes extends Component {
     }
   }
 
-  componentDidUpdate = () => {
-    this.componentDidMount()
+  componentWillReceiveProps = () => {
+    // this.componentDidMount()
+    this.getAllDishesFunction();
+    console.log("update")
+    
+  
+    
   }
 
   // this methods is called by React lifecycle when the 
@@ -28,16 +35,23 @@ class Dishes extends Component {
   componentDidMount = () => {
     // when data is retrieved we update the state
     // this will cause the component to re-render
+    console.log("didMount")
+    this.getAllDishesFunction();
+  }
+
+  getAllDishesFunction = () => {
     modelInstance.getAllDishes(this.props.type).then(dishes => {
       this.setState({
         status: 'LOADED',
         dishes: dishes.results
-      })
+      }) 
     }).catch(() => {
       this.setState({
         status: 'ERROR'
       })
     })
+    //console.log(dishes)
+    
   }
 
 
