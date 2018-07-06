@@ -28,6 +28,8 @@ class SelectDish extends Component {
   render() {
     return (
       <div className="SelectDish">
+      {/* We pass the model as property to the Sidebar component */}
+      <Sidebar model={this.props.model}/>
       
         <h2 className="jumbotron-heading">This is the Select Dish screen</h2>
         <p className="lead text-muted">Search for what food u want mate.</p>
@@ -52,8 +54,7 @@ class SelectDish extends Component {
         </div>  
       </form>
 
-        {/* We pass the model as property to the Sidebar component */}
-        <Sidebar model={this.props.model}/>
+        
         <Dishes type={this.state.type} filter={this.state.filter}/>
       </div>
     );
