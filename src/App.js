@@ -23,7 +23,7 @@ class App extends Component {
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome}/>
           <Route path="/search" render={() => <SelectDish model={modelInstance}/>}/>
-          <Route path="/dish/:id" render={() => <Dish model={modelInstance}/>}/>
+          <Route path="/dish/:id" render={() => <Dish id={":id"} model={modelInstance}/>}/>
         
         
       </div>

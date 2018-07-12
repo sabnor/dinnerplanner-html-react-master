@@ -97,6 +97,20 @@ class Dishes extends Component {
 
           {dishesList}
         </div>
+        <div key={12344} className="col-md-4">
+          <Link to={"/dish/"+ 12344} params={{description: "hejhejhej"}}>
+            <div className="card mb-4 box-shadow">
+              <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={"https://spoonacular.com/recipeImages/"+ 12344} data-holder-rendered="true"/>
+              <div className="card-body">
+                  <p className="card-text">Title</p>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <small className="text-muted">9 mins</small>
+                  </div>
+                </div>
+
+            </div>
+          </Link>
+          </div>
       </div>
     );
   }
