@@ -36,7 +36,7 @@ class SelectDish extends Component {
       <form>
         <div className="form-row">
         <div className="col">
-          <select class="form-control" value={this.state.value} onChange={this.handleChange}>
+          <select className="form-control" value={this.state.value} onChange={this.handleChange}>
             <option value="starter">Starter</option>
             <option value="side dish">Side dish</option>
             <option value="main course">Main course</option>
