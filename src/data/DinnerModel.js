@@ -16,6 +16,7 @@ const DinnerModel = function () {
     return numberOfGuests;
   };
 
+    //Github-
   // API Calls
 
   this.getAllDishes = function (type) {
