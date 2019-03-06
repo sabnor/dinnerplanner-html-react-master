@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 //import './Welcome.css';
 import { Link } from 'react-router-dom';
 import { Location } from 'react-router-dom';
-import { modelInstance } from './data/DinnerModel'
+import { modelInstance } from './data/DinnerModel';
+import Sidebar from './Sidebar/Sidebar';
+import { withRouter } from 'react-router'
+
+
+
 
 const Dish = ({ match }) => (
   <div>
+    <Sidebar model={modelInstance}/>
     <h3>ID: {match.params.id}</h3>
 
     <div className="container col">
@@ -15,11 +21,14 @@ const Dish = ({ match }) => (
     <div className="col-sm-4">
     <div className="smallTitle">Small title </div>
     
-
-
-      <div className="button">
-      <button type="button-center" className="btn btn-warning">Back to search</button>
+    <div className="button">
+        <Link to="/Search">
+          <button type="button-center" className="btn btn-warning">
+                Back to search
+            </button>
+        </Link>
       </div>
+   
       </div>
 
       <div className="col">
