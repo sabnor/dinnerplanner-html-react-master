@@ -66,6 +66,13 @@ class Dishes extends Component {
         dishesList = <em>Loading...</em>
         break;
       case 'LOADED':
+      console.log("Loaded update "+this.props.type)
+      console.log("Loaded update "+this.state.type)
+
+
+      // console.log("Loaded update "+this.state.dishes)
+
+
         dishesList = this.state.dishes.map((dish) =>
         
           <div key={dish.id} className="col-md-4">
@@ -86,7 +93,8 @@ class Dishes extends Component {
         )
         break;
       default:
-        dishesList = <b>Failed to load data, please try again</b>
+        dishesList = <b>Failed to load data, please press the filter button to complete your search</b>
+        console.log("update failed"+this.props)
         break;
     }
 
