@@ -7,19 +7,93 @@ import Sidebar from './Sidebar/Sidebar';
 import { withRouter } from 'react-router'
 
 
+class Dishes extends Component {
+  constructor(props) {
+    super(props);    
+    // We create the state to store the various statuses
+    // e.g. API data loading or error 
+    this.state = {
+      status: 'INITIAL'
+    }
+  }
+
+  // componentWillReceiveProps = () => {
+  //   // this.componentDidMount()
+  //   this.getDishDetailsFunction();    
+  
+    
+  // }
+
+  // this methods is called by React lifecycle when the 
+  // component is actually shown to the user (mounted to DOM)
+  // that's a good place to call the API and get the data
+
+  componentDidMount = () => {
+    // when data is retrieved we update the state
+    // this will cause the component to re-render
+    console.log("didMount")
+    this.getDishDetailsFunction();
+  }
+  
+  getDishDetailsFunction = () => {
+    modelInstance.getDishDetails(this.props.match.params.id).then(dishes => {
+      this.setState({
+        status: 'LOADED',
+        dishResults: dishes
+      }) 
+    }).catch(() => {
+      this.setState({
+        status: 'ERROR'
+      })
+    })
+    
+  }
+  // log(dishes)
 
 
-const Dish = ({ match }) => (
-  <div>
-    <Sidebar model={modelInstance}/>
-    <h3>ID: {match.params.id}</h3>
+  render() {
+    let dishDetails = this.state.dishResults;
+    
+  //   ingredients = this.state.dishResults.ingredients.map((ingredient) =>
+  //   {ingredient}
+  // )
+    
+    // depending on the state we either generate
+    // useful message to the user or show the list
+    // of returned dishes
+    switch (this.state.status) {
+      case 'INITIAL':
+      dishDetails = <em>Loading...</em>
+        break;
+      case 'LOADED':
+      
+      //dishesList = this.state.dishes
+        // dishesList = this.state.dishes.map((dish) =>
+       
+        // // .map((dish) =>
+        
+        //   <div >
+        //     Ingredients: {}
+        //   </div>
+        // )
+        break;
+      default:
+      dishDetails = <b>Failed to load data, please try again</b>
+        break;
+    }
 
-    <div className="container col">
+
+    return (
+      <div>
+        <Sidebar model={modelInstance}/>
+        <h3>{dishDetails.title}</h3>
+
+        <div className="container col">
     <div className="row">
 
 
     <div className="col-sm-4">
-    <div className="smallTitle">Small title </div>
+    <div className="smallTitle">Instructions:{dishDetails.instructions}</div>
     
     <div className="button">
         <Link to="/Search">
@@ -44,37 +118,9 @@ const Dish = ({ match }) => (
       </div>
     </div>
     </div>
+      </div>
+    );
+  }
+}
 
-
-  </div>
-
-  
-
-)
-// class Dish extends Component {
-//   render() {
-//     return (
-//       <div className="">
-//           {/*/ <img className="imgWelcome" src="https://buyer-static.postmates.com/dist/prod/d1cec2a0ebfc3b4eb296a9d3d85aa76a.png"></img>*/}
-//         <div className="text-center">
-//           <p className='textSquare lead text-muted'>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-//           httpsej
-//           {this.props.id}
-//           {match.params.dish}
-//           {/* {this.props.match.params.value} */}
-//           {/* {this.pa1rams.id} */}
-//         {/* {this.props.match.params.id} 
-
-//         {this.props.location.description}
-//         {this.props.match.params.id} 
-//         {window.location.href}          */}
-//           {/* <Link to="/search">
-//           <button className="btn btn-warning">Create new dinner</button>
-//         </Link> */}
-//         {/* <Sidebar model={this.props.model}/> */}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-export default Dish;
+export default Dishes;

@@ -27,6 +27,16 @@ const DinnerModel = function () {
       .catch(handleError)
   }
   
+  // API Calls
+
+  this.getDishDetails = function (id) {
+    const url = "http://sunset.nada.kth.se:8080/iprog/group/39/recipes/"+id+"/information"
+
+    return fetch(url, httpOptions)
+      .then(processResponse)
+      .catch(handleError)
+  }
+  
   // API Helper methods
 
   const processResponse = function (response) {
