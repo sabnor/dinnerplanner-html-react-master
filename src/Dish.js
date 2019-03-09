@@ -17,17 +17,6 @@ class Dishes extends Component {
     }
   }
 
-  // componentWillReceiveProps = () => {
-  //   // this.componentDidMount()
-  //   this.getDishDetailsFunction();    
-  
-    
-  // }
-
-  // this methods is called by React lifecycle when the 
-  // component is actually shown to the user (mounted to DOM)
-  // that's a good place to call the API and get the data
-
   componentDidMount = () => {
     // when data is retrieved we update the state
     // this will cause the component to re-render
@@ -52,12 +41,9 @@ class Dishes extends Component {
 
 
   render() {
+
     let dishDetails = this.state.dishResults;
-    
-  //   ingredients = this.state.dishResults.ingredients.map((ingredient) =>
-  //   {ingredient}
-  // )
-    
+
     // depending on the state we either generate
     // useful message to the user or show the list
     // of returned dishes
@@ -81,43 +67,61 @@ class Dishes extends Component {
       dishDetails = <b>Failed to load data, please try again</b>
         break;
     }
+    // let ingredients = dishDetails.extendedIngredients.map((ingredient,i) => {
+    //       return ( <div key={i} className="col-md-4">
+    //                 {ingredient}
+    //               </div>
+    //               )
+    //             }
+    //     )
+    let ingredients = dishDetails.extendedIngredients
+    console.log(ingredients)
+    
+//     this.items = dishDetails.extendedIngredients.map((item, key) =>
+//     <li key={item.id}>{item.name}</li>
+// );
 
-
+ 
+    
     return (
       <div>
         <Sidebar model={modelInstance}/>
         <h3>{dishDetails.title}</h3>
 
         <div className="container col">
-    <div className="row">
+              <div className="row">
 
 
-    <div className="col-sm-4">
-    <div className="smallTitle">Instructions:{dishDetails.instructions}</div>
-    
-    <div className="button">
-        <Link to="/Search">
-          <button type="button-center" className="btn btn-warning">
-                Back to search
-            </button>
-        </Link>
-      </div>
-   
-      </div>
+              <div className="col-sm-4">
+              <img src={dishDetails.image}  />
+                  <div className="smallTitle"><h5>Instructions:</h5><br/>{dishDetails.instructions}</div>
+                  
+                  <div className="button">
+                      <Link to="/Search">
+                        <button type="button-center" className="btn btn-warning">
+                              Back to search
+                          </button>
+                      </Link>
+                    </div>
+            
+                </div>
 
-      <div className="col">
-        <div className="solid orange regularContainer">
-          <div className='superSmallTitle text-center'>Ingredients for <span id="numberOfGuests"></span> people</div>
-          <div className="solid">
-          </div>
-          <span id="ingredientrows"></span>
-          <div className="button text-center">
-              <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer">Add to menue</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
+                <div className="col">
+                  <div className="solid orange regularContainer">
+                    <div className='superSmallTitle text-center'>Ingredients for # people</div>
+                    <div className="solid"></div>
+                    
+                    
+
+
+                    <div className="button text-center">
+                        <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer">Add to menue</button>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+          
       </div>
     );
   }

@@ -82,7 +82,7 @@ class Dishes extends Component {
               <div className="card-body">
                   <p className="card-text">{dish.title}</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">9 mins</small>
+                    <small className="text-muted">{dish.readyInMinutes} min</small>
                   </div>
                 </div>
             {/* <h3 key={dish.id}>{dish.title}</h3> */}
