@@ -5,6 +5,8 @@ import { Location } from 'react-router-dom';
 import { modelInstance } from './data/DinnerModel';
 import Sidebar from './Sidebar/Sidebar';
 import { withRouter } from 'react-router'
+import './Dish.css';
+
 
 
 class Dishes extends Component {
@@ -43,6 +45,8 @@ class Dishes extends Component {
   render() {
 
     let dishDetails = this.state.dishResults;
+    let ingredients = null
+    
 
     // depending on the state we either generate
     // useful message to the user or show the list
@@ -62,20 +66,66 @@ class Dishes extends Component {
         //     Ingredients: {}
         //   </div>
         // )
+
+      let ingredientsss = dishDetails.extendedIngredients
+      console.log(ingredientsss)
+
+
+      ingredients = (
+
+      <div id="dishIngredients">
+
+      {dishDetails.extendedIngredients.map((ingredient,i) => (
+
+          <div className="row">
+          <div key={i} className="dishIngredient col">
+            <div className="dishIngredientMeasure">
+              {ingredient.measures.metric.amount}
+              {ingredient.measures.metric.unitShort}
+            </div>
+            <div key="ingredientTitle" className="dishIngredientTitle">
+              {ingredient.name}
+            </div>
+            <div className="dishIngredientPrice">XX SEK</div>
+          </div>
+        </div>
+      ))}
+
+      </div>
+      )
+
+    console.log(ingredients)
+
+
+      // ingredientList = ingredients.map((ingredient) =>
+        
+      //     <div key={dish.id} className="col-md-4">
+      //     <Link to={"/dish/" + dish.id}>
+      //       <div className="card mb-4 box-shadow">
+      //         <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={"https://spoonacular.com/recipeImages/"+ dish.image} data-holder-rendered="true"/>
+      //         <div className="card-body">
+      //             <p className="card-text">{dish.title}</p>
+      //             <div className="d-flex justify-content-between align-items-center">
+      //               <small className="text-muted">{dish.readyInMinutes} min</small>
+      //             </div>
+      //           </div>
+      //       {/* <h3 key={dish.id}>{dish.title}</h3> */}
+
+      //       </div>
+      //     </Link>
+      //     </div>
+      //   )
+
+
+
         break;
       default:
       dishDetails = <b>Failed to load data, please try again</b>
         break;
     }
-    // let ingredients = dishDetails.extendedIngredients.map((ingredient,i) => {
-    //       return ( <div key={i} className="col-md-4">
-    //                 {ingredient}
-    //               </div>
-    //               )
-    //             }
-    //     )
-    let ingredients = dishDetails.extendedIngredients
-    console.log(ingredients)
+    // 
+
+    
     
 //     this.items = dishDetails.extendedIngredients.map((item, key) =>
 //     <li key={item.id}>{item.name}</li>
@@ -96,7 +146,7 @@ class Dishes extends Component {
               <img src={dishDetails.image}  />
                   <div className="smallTitle"><h5>Instructions:</h5><br/>{dishDetails.instructions}</div>
                   
-                  <div className="button">
+                    <div className="button">
                       <Link to="/Search">
                         <button type="button-center" className="btn btn-warning">
                               Back to search
@@ -107,11 +157,12 @@ class Dishes extends Component {
                 </div>
 
                 <div className="col">
-                  <div className="solid orange regularContainer">
-                    <div className='superSmallTitle text-center'>Ingredients for # people</div>
-                    <div className="solid"></div>
-                    
-                    
+                  <div className="ingredientsContainer">
+                    <div className='superSmallTitle text-center'>Ingredients for {modelInstance.getNumberOfGuests()} people</div>
+                    <div className="ingredients text-center">
+                      {ingredients}
+
+                    </div>
 
 
                     <div className="button text-center">
