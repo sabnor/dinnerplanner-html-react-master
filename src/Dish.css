@@ -1,0 +1,10 @@
+
+
+.ingredientsContainer{
+    /* margin: 4rem; */
+
+}
+
+.dishIngredient{
+    display: flex;
+}

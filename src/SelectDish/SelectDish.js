@@ -15,13 +15,16 @@ class SelectDish extends Component {
   }
 
   handleChange(event) {
+      //Updates the state
     this.setState({type: event.target.value, filter:event.target.value});
-    event.preventDefault();
+    // event.preventDefault();
   }
 
   handleSubmit(event) {
+    //Updates the state
     this.setState({type: event.target.value, filter:event.target.value});
     event.preventDefault();
+
   }
 
 
@@ -33,10 +36,11 @@ class SelectDish extends Component {
       
         <h2 className="jumbotron-heading">This is the Select Dish screen</h2>
         <p className="lead text-muted">Search for what food u want mate.</p>
-      <form>
+        
+      <form onSubmit={this.handleSubmit}>
         <div className="form-row">
         <div className="col">
-          <select className="form-control" value={this.state.value} onChange={this.handleChange}>
+          <select className="form-control" value={this.state.type} onChange={this.handleChange} >
             <option value="starter">Starter</option>
             <option value="side dish">Side dish</option>
             <option value="main course">Main course</option>
@@ -54,8 +58,8 @@ class SelectDish extends Component {
         </div>  
       </form>
 
-        
-        <Dishes type={this.state.type} filter={this.state.filter}/>
+        {/* Visar dishes */}
+        <Dishes  type={this.state.type} filter={this.state.filter}/>
       </div>
     );
   }

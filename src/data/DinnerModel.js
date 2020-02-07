@@ -1,5 +1,5 @@
 const httpOptions = {
-  headers: {'X-Mashape-Key': 'k2x8zD2tl2mshzMW9pmsxLv8y7Elp1bJxTJjsnm11xhlvs7qCX'}
+  headers: {'X-Mashape-Key': '3d2a031b4cmsh5cd4e7b939ada54p19f679jsn9a775627d767'}
 };
 
 const DinnerModel = function () {
@@ -16,10 +16,21 @@ const DinnerModel = function () {
     return numberOfGuests;
   };
 
+    //Github-
   // API Calls
 
   this.getAllDishes = function (type) {
-    const url = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?type="+type+"&number=100&query="//+filter
+    const url = "http://sunset.nada.kth.se:8080/iprog/group/39/recipes/search?type="+type+"&number=100&query="//+filter
+
+    return fetch(url, httpOptions)
+      .then(processResponse)
+      .catch(handleError)
+  }
+  
+  // API Calls
+
+  this.getDishDetails = function (id) {
+    const url = "http://sunset.nada.kth.se:8080/iprog/group/39/recipes/"+id+"/information"
 
     return fetch(url, httpOptions)
       .then(processResponse)
