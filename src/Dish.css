@@ -2,9 +2,11 @@
 
 .ingredientsContainer{
     /* margin: 4rem; */
+    border: solid;
 
 }
 
 .dishIngredient{
-    display: flex;
+    display: flex; 
+    border: solid;
 }

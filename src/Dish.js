@@ -86,11 +86,17 @@ class Dishes extends Component {
             <div key="ingredientTitle" className="dishIngredientTitle">
               {ingredient.name}
             </div>
-            <div className="dishIngredientPrice">XX SEK</div>
+            <div className="dishIngredientPrice">
+            {ingredient.measures.metric.amount} SEK
+            </div>
           </div>
         </div>
-      ))}
+        
 
+      ))}
+          <div>TOTAL <p>{dishDetails.pricePerServing} SEK </p>
+          
+        </div>
       </div>
       )
 
