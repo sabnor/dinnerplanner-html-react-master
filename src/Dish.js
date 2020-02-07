@@ -134,11 +134,11 @@ class Dishes extends Component {
  
     
     return (
-      <div>
+      <div className="container col">
         <Sidebar model={modelInstance}/>
         <h3>{dishDetails.title}</h3>
 
-        <div className="container col">
+        <div >
               <div className="row">
 
 
