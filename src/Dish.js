@@ -91,8 +91,12 @@ class Dishes extends Component {
             </div>
           </div>
         </div>
-      ))}
+        
 
+      ))}
+          <div>TOTAL <p>{dishDetails.pricePerServing} SEK </p>
+          
+        </div>
       </div>
       )
 
