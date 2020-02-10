@@ -77,20 +77,14 @@ class Dishes extends Component {
 
       {dishDetails.extendedIngredients.map((ingredient,i) => (
 
-          <div className="row">
-          <div key={i} className="dishIngredient col">
-            <div className="dishIngredientMeasure">
-              {ingredient.measures.metric.amount}
-              {ingredient.measures.metric.unitShort}
+          <div key={i} className="d-flex justify-content-between">
+            <div className="p-2 flex-grow-1 bd-highlight dishIngredientMeasure">
+              {ingredient.measures.metric.amount}&nbsp;{ingredient.measures.metric.unitShort}&nbsp;{ingredient.name}
             </div>
-            <div key="ingredientTitle" className="dishIngredientTitle">
-              {ingredient.name}
-            </div>
-            <div className="dishIngredientPrice">
-            {ingredient.measures.metric.amount} SEK
+            <div className="p-2 flex-shrink-1 bd-highlight dishIngredientPrice">
+            {ingredient.measures.metric.amount} &nbsp; SEK
             </div>
           </div>
-        </div>
         
 
       ))}
@@ -140,44 +134,42 @@ class Dishes extends Component {
  
     
     return (
-      <div className="container col">
+      <div className="d-flex bd-highlight">
+        <div className="p-2 flex-fill bd-highlight">
         <Sidebar model={modelInstance}/>
-        <h3>{dishDetails.title}</h3>
+        </div>
+        
+        
 
-        <div >
-              <div className="row">
+              <div className="p-2 flex-fill bd-highlight">
 
-
-              <div className="col-sm-4">
-              <img src={dishDetails.image}  />
-                  <div className="smallTitle"><h5>Instructions:</h5><br/>{dishDetails.instructions}</div>
-                  
-                    <div className="button">
-                      <Link to="/Search">
-                        <button type="button-center" className="btn btn-warning">
-                              Back to search
-                          </button>
-                      </Link>
-                    </div>
-            
+                <div className="button">
+                  <Link to="/Search">
+                    <button type="button-center" className="btn btn-warning">
+                          Back to search
+                      </button>
+                  </Link>
+                </div>
+                
+                <h3>{dishDetails.title}</h3>
+                <img src={dishDetails.image}  />
+                    <div className="smallTitle"><h5>Instructions:</h5><br/>{dishDetails.instructions}</div>
+                      
+              
                 </div>
 
-                <div className="col">
-                  <div className="ingredientsContainer">
+                <div className="p-2 w-100 bd-highlight">
                     <div className='superSmallTitle text-center'>Ingredients for {modelInstance.getNumberOfGuests()} people</div>
                     <div className="ingredients text-center">
                       {ingredients}
 
                     </div>
-
-
                     <div className="button text-center">
-                        <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer">Add to menue</button>
+                      <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer">Add to menue</button>
                     </div>
-                  </div>
-                  </div>
+
+                    
                 </div>
-              </div>
           
       </div>
     );

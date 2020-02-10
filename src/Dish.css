@@ -6,7 +6,7 @@
 
 }
 
-.dishIngredient{
-    display: flex; 
+#dishIngredients{
     border: solid;
+    background-color: orange;
 }
