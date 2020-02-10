@@ -9,6 +9,8 @@ import './Dish.css';
 
 
 
+
+
 class Dishes extends Component {
   constructor(props) {
     super(props);    
@@ -67,9 +69,13 @@ class Dishes extends Component {
         //   </div>
         // )
 
+        //Calculate total cost
       let ingredientsss = dishDetails.extendedIngredients
-      console.log(ingredientsss)
-
+      let totalCost = 0;
+      ingredientsss.forEach(ingredient => {
+        totalCost += ingredient.measures.metric.amount;
+        
+      });
 
       ingredients = (
 
@@ -79,16 +85,16 @@ class Dishes extends Component {
 
           <div key={i} className="d-flex justify-content-between">
             <div className="p-2 flex-grow-1 bd-highlight dishIngredientMeasure">
-              {ingredient.measures.metric.amount}&nbsp;{ingredient.measures.metric.unitShort}&nbsp;{ingredient.name}
+              {Math.round(ingredient.measures.metric.amount)}&nbsp;{ingredient.measures.metric.unitShort}&nbsp;{ingredient.name}
             </div>
             <div className="p-2 flex-shrink-1 bd-highlight dishIngredientPrice">
-            {ingredient.measures.metric.amount} &nbsp; SEK
+            {Math.round(ingredient.measures.metric.amount)} &nbsp; SEK
             </div>
           </div>
         
 
       ))}
-          <div>TOTAL <p>{dishDetails.pricePerServing} SEK </p>
+          <div>TOTAL <p>{Math.round(totalCost)} SEK </p>
           
         </div>
       </div>
