@@ -6,6 +6,7 @@ const DinnerModel = function () {
 
   let numberOfGuests = 4;
   let observers = [];
+  let menu = [];
 
   this.setNumberOfGuests = function (num) {
     numberOfGuests = num;
@@ -14,6 +15,10 @@ const DinnerModel = function () {
 
   this.getNumberOfGuests = function () {
     return numberOfGuests;
+  };
+
+  this.getMenu = function () {
+    return menu;
   };
 
     //Github-
@@ -57,9 +62,9 @@ const DinnerModel = function () {
   }
 
   // Observer pattern
-
   this.addObserver = function (observer) {
     observers.push(observer);
+
   };
 
   this.removeObserver = function (observer) {
@@ -69,6 +74,26 @@ const DinnerModel = function () {
   const notifyObservers = function () {
     observers.forEach(o => o.update());
   };
+
+
+  // Add menu
+  this.addMenu = function (dish) {
+    menu.push(dish);
+    console.log(menu);
+
+  };
+
+  // this.removeObserver = function (observer) {
+  //   observers = observers.filter(o => o !== observer);
+  // };
+
+  // const notifyObservers = function () {
+  //   observers.forEach(o => o.update());
+  // };
+
 };
+
+
+
 
 export const modelInstance = new DinnerModel();

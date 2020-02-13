@@ -10,7 +10,8 @@ class Sidebar extends Component {
 
     // we put on state the properties we want to use and modify in the component
     this.state = {
-      numberOfGuests: this.props.model.getNumberOfGuests()
+      numberOfGuests: this.props.model.getNumberOfGuests(),
+      menu: this.props.model.getMenu()
     }
   }
 
@@ -31,7 +32,8 @@ class Sidebar extends Component {
   // cause the component to re-render
   update() {
     this.setState({
-      numberOfGuests: this.props.model.getNumberOfGuests()
+      numberOfGuests: this.props.model.getNumberOfGuests(),
+      menu: this.props.model.getMenu()
     })
   }
 
@@ -40,10 +42,25 @@ class Sidebar extends Component {
     this.props.model.setNumberOfGuests(+e.target.value)
   }
 
+  
 
 
 
   render() {
+
+
+  let title = null;
+  let cost = 0;
+  let totalCost = 0;
+
+
+  this.state.menu.forEach(dish => {
+    title = dish.title;
+    cost = dish.measures.metric.amount;
+    totalCost += dish.measures.metric.amount;
+  });
+
+
     return (
       <div className="Sidebar">
         <h3>My dinner</h3>
@@ -57,7 +74,7 @@ class Sidebar extends Component {
         </p>
         <br/>
         <p>
-        Cost:
+        Cost: <p>{Math.round(cost)} SEK </p>
         </p>
       </div>
     );

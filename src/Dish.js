@@ -47,7 +47,9 @@ class Dishes extends Component {
   render() {
 
     let dishDetails = this.state.dishResults;
-    let ingredients = null
+    let ingredients = null;
+
+    modelInstance.addObserver(this);
     
 
     // depending on the state we either generate
@@ -59,22 +61,13 @@ class Dishes extends Component {
         break;
       case 'LOADED':
       
-      //dishesList = this.state.dishes
-        // dishesList = this.state.dishes.map((dish) =>
-       
-        // // .map((dish) =>
-        
-        //   <div >
-        //     Ingredients: {}
-        //   </div>
-        // )
+  
 
         //Calculate total cost
       let ingredientsss = dishDetails.extendedIngredients
       let totalCost = 0;
       ingredientsss.forEach(ingredient => {
         totalCost += ingredient.measures.metric.amount;
-        
       });
 
       ingredients = (
@@ -100,28 +93,10 @@ class Dishes extends Component {
       </div>
       )
 
-    console.log(ingredients)
 
-
-      // ingredientList = ingredients.map((ingredient) =>
-        
-      //     <div key={dish.id} className="col-md-4">
-      //     <Link to={"/dish/" + dish.id}>
-      //       <div className="card mb-4 box-shadow">
-      //         <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={"https://spoonacular.com/recipeImages/"+ dish.image} data-holder-rendered="true"/>
-      //         <div className="card-body">
-      //             <p className="card-text">{dish.title}</p>
-      //             <div className="d-flex justify-content-between align-items-center">
-      //               <small className="text-muted">{dish.readyInMinutes} min</small>
-      //             </div>
-      //           </div>
-      //       {/* <h3 key={dish.id}>{dish.title}</h3> */}
-
-      //       </div>
-      //     </Link>
-      //     </div>
-      //   )
-
+      // function addMenuClick(e) {
+      //   e.preventDefault
+      // }
 
 
         break;
@@ -129,24 +104,15 @@ class Dishes extends Component {
       dishDetails = <b>Failed to load data, please try again</b>
         break;
     }
-    // 
+    
 
-    
-    
-//     this.items = dishDetails.extendedIngredients.map((item, key) =>
-//     <li key={item.id}>{item.name}</li>
-// );
-
- 
-    
     return (
       <div className="d-flex bd-highlight">
         <div className="p-2 flex-fill bd-highlight">
-        <Sidebar model={modelInstance}/>
+        <Sidebar model={modelInstance} />
         </div>
         
-        
-
+      
               <div className="p-2 flex-fill bd-highlight">
 
                 <div className="button">
@@ -166,12 +132,13 @@ class Dishes extends Component {
 
                 <div className="p-2 w-100 bd-highlight">
                     <div className='superSmallTitle text-center'>Ingredients for {modelInstance.getNumberOfGuests()} people</div>
+
                     <div className="ingredients text-center">
                       {ingredients}
 
                     </div>
                     <div className="button text-center">
-                      <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer">Add to menue</button>
+                      <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer" onClick={()=> {modelInstance.addMenu(dishDetails);}}>Add to menu</button>
                     </div>
 
                     
