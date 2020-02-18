@@ -49,16 +49,33 @@ class Sidebar extends Component {
   render() {
 
 
-  let title = null;
-  let cost = 0;
+  let displayMenu = null;
   let totalCost = 0;
 
 
   this.state.menu.forEach(dish => {
-    title = dish.title;
-    cost = dish.measures.metric.amount;
-    totalCost += dish.measures.metric.amount;
+    // title = dish.title;
+    // cost = dish.cost;
+    totalCost += dish.cost;
+    console.log(dish.title, dish.cost);
   });
+
+
+  displayMenu = (
+  <div id="menu">
+
+  {this.state.menu.map((dish) => (
+
+          <div>
+            {dish.title}&nbsp;{Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
+          </div>
+
+      ))}
+          <div>TOTAL <p>{Math.round(totalCost*this.props.model.getNumberOfGuests())} SEK </p>
+          
+        </div>
+  </div>
+  )
 
 
     return (
@@ -69,13 +86,7 @@ class Sidebar extends Component {
         <br/>
         Total number of guests: {this.state.numberOfGuests}
         </p>
-        <p>
-        Dish name: 
-        </p>
-        <br/>
-        <p>
-        Cost: <p>{Math.round(cost)} SEK </p>
-        </p>
+       {displayMenu}
       </div>
     );
   }

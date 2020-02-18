@@ -16,8 +16,33 @@ class Dishes extends Component {
     // We create the state to store the various statuses
     // e.g. API data loading or error 
     this.state = {
-      status: 'INITIAL'
+      status: 'INITIAL',
+      numberOfGuests: modelInstance.getNumberOfGuests(),
+      menu: modelInstance.getMenu()
     }
+  }
+
+
+  
+  
+  // this is called when component is removed from the DOM
+  // good place to remove observer
+  componentWillUnmount() {
+    modelInstance.removeObserver(this)
+  }
+
+  // in our update function we modify the state which will
+  // cause the component to re-render
+  update() {
+    this.setState({
+      numberOfGuests: modelInstance.getNumberOfGuests(),
+      menu: modelInstance.getMenu()
+    })
+  }
+
+  // our handler for the input's on change event
+  onNumberOfGuestsChanged = (e) => {
+    modelInstance.setNumberOfGuests(+e.target.value)
   }
 
   componentWillReceiveProps = () => {
@@ -37,6 +62,7 @@ class Dishes extends Component {
     // this will cause the component to re-render
     console.log("didMount")
     this.getAllDishesFunction();
+    modelInstance.addObserver(this);
   }
 
   getAllDishesFunction = () => {

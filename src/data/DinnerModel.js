@@ -17,6 +17,14 @@ const DinnerModel = function () {
     return numberOfGuests;
   };
 
+  // Add menu
+  this.setMenu = function (dish) {
+    menu.push(dish);
+    console.log(menu);
+    notifyObservers();
+  };
+
+
   this.getMenu = function () {
     return menu;
   };
@@ -76,12 +84,6 @@ const DinnerModel = function () {
   };
 
 
-  // Add menu
-  this.addMenu = function (dish) {
-    menu.push(dish);
-    console.log(menu);
-
-  };
 
   // this.removeObserver = function (observer) {
   //   observers = observers.filter(o => o !== observer);

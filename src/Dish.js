@@ -17,7 +17,10 @@ class Dishes extends Component {
     // We create the state to store the various statuses
     // e.g. API data loading or error 
     this.state = {
-      status: 'INITIAL'
+      status: 'INITIAL',
+      numberOfGuests: modelInstance.getNumberOfGuests(),
+      menu: modelInstance.getMenu(),
+      menuObject: null
     }
   }
 
@@ -26,8 +29,30 @@ class Dishes extends Component {
     // this will cause the component to re-render
     console.log("didMount")
     this.getDishDetailsFunction();
+    modelInstance.addObserver(this);
   }
   
+  
+  // this is called when component is removed from the DOM
+  // good place to remove observer
+  componentWillUnmount() {
+    modelInstance.removeObserver(this)
+  }
+
+  // in our update function we modify the state which will
+  // cause the component to re-render
+  update() {
+    this.setState({
+      numberOfGuests: modelInstance.getNumberOfGuests(),
+      menu: modelInstance.getMenu()
+    })
+  }
+
+  // our handler for the input's on change event
+  onNumberOfGuestsChanged = (e) => {
+    modelInstance.setNumberOfGuests(+e.target.value)
+  }
+
   getDishDetailsFunction = () => {
     modelInstance.getDishDetails(this.props.match.params.id).then(dishes => {
       this.setState({
@@ -41,8 +66,6 @@ class Dishes extends Component {
     })
     
   }
-  // log(dishes)
-
 
   render() {
 
@@ -69,7 +92,7 @@ class Dishes extends Component {
       ingredientsss.forEach(ingredient => {
         totalCost += ingredient.measures.metric.amount;
       });
-
+      this.state.menuObject = {title: dishDetails.title, cost: totalCost}
       ingredients = (
 
       <div id="dishIngredients">
@@ -78,16 +101,16 @@ class Dishes extends Component {
 
           <div key={i} className="d-flex justify-content-between">
             <div className="p-2 flex-grow-1 bd-highlight dishIngredientMeasure">
-              {Math.round(ingredient.measures.metric.amount)}&nbsp;{ingredient.measures.metric.unitShort}&nbsp;{ingredient.name}
+              {Math.round(ingredient.measures.metric.amount*modelInstance.getNumberOfGuests())}&nbsp;{ingredient.measures.metric.unitShort}&nbsp;{ingredient.name}
             </div>
             <div className="p-2 flex-shrink-1 bd-highlight dishIngredientPrice">
-            {Math.round(ingredient.measures.metric.amount)} &nbsp; SEK
+            {Math.round(ingredient.measures.metric.amount*modelInstance.getNumberOfGuests())} &nbsp; SEK
             </div>
           </div>
         
 
       ))}
-          <div>TOTAL <p>{Math.round(totalCost)} SEK </p>
+          <div>TOTAL <p>{Math.round(totalCost*modelInstance.getNumberOfGuests())} SEK </p>
           
         </div>
       </div>
@@ -138,7 +161,7 @@ class Dishes extends Component {
 
                     </div>
                     <div className="button text-center">
-                      <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer" onClick={()=> {modelInstance.addMenu(dishDetails);}}>Add to menu</button>
+                      <button id="addDishButton" type="button-center" className="btn btn-warning regularContainer" onClick={()=> {modelInstance.setMenu(this.state.menuObject);}}>Add to menu</button>
                     </div>
 
                     
