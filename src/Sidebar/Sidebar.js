@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import './Sidebar.css';
+import { Link } from 'react-router-dom';
 class Sidebar extends Component {
 
   constructor(props) {
@@ -87,6 +88,14 @@ class Sidebar extends Component {
         Total number of guests: {this.state.numberOfGuests}
         </p>
        {displayMenu}
+
+       <div className="button">
+                  <Link to="/overview">
+                    <button type="button-center" className="btn btn-warning">
+                          Confirm dinner
+                      </button>
+                  </Link>
+                </div>
       </div>
     );
   }
