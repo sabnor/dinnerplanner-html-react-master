@@ -1,7 +1,7 @@
 //Child to SelectDish-component
 
 import React, {Component} from 'react';
-import './Dishes.css';
+import './Overview.css';
 // Alternative to passing the moderl as the component property, 
 // we can import the model instance directly
 import {modelInstance} from '../data/DinnerModel';
@@ -18,7 +18,8 @@ class Overview extends Component {
     this.state = {
       status: 'INITIAL',
       numberOfGuests: modelInstance.getNumberOfGuests(),
-      menu: modelInstance.getMenu()
+      menu: modelInstance.getMenu(),
+      totalCost: 0
     }
   }
 
@@ -47,7 +48,6 @@ class Overview extends Component {
 
   componentWillReceiveProps = () => {
     // this.componentDidMount()
-    this.getAllDishesFunction();
     console.log("update")
     
   
@@ -61,79 +61,75 @@ class Overview extends Component {
     // when data is retrieved we update the state
     // this will cause the component to re-render
     console.log("didMount")
-    this.getAllDishesFunction();
     modelInstance.addObserver(this);
   }
 
-  getAllDishesFunction = () => {
-    modelInstance.getAllDishes(this.props.type).then(dishes => {
-      this.setState({
-        status: 'LOADED',
-        dishes: dishes.results
-      }) 
-    }).catch(() => {
-      this.setState({
-        status: 'ERROR'
-      })
-    })
-    //console.log(dishes)
-    
-  }
-
+  
 
   render() {
     let dishesList = null;
+
+    this.state.menu.forEach(dish => {
+      this.state.totalCost += dish.cost;
+    });
     
     // depending on the state we either generate
     // useful message to the user or show the list
     // of returned dishes
-    switch (this.state.status) {
-      case 'INITIAL':
-        dishesList = <em>Loading...</em>
-        break;
-      case 'LOADED':
-      console.log("Loaded update "+this.props.type)
-      console.log("Loaded update "+this.state.type)
-
-
-      // console.log("Loaded update "+this.state.dishes)
-
-
-        dishesList = this.state.dishes.map((dish) =>
-        
-          <div key={dish.id} className="col-md-4">
-          <Link to={"/dish/" + dish.id}>
+    dishesList = (
+      <div className="row">
+      {this.state.menu.map((dish) => (
+          <div className="col-md-4">
             <div className="card mb-4 box-shadow">
-              <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={"https://spoonacular.com/recipeImages/"+ dish.image} data-holder-rendered="true"/>
+              <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={dish.image} data-holder-rendered="true"/>
               <div className="card-body">
                   <p className="card-text">{dish.title}</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">{dish.readyInMinutes} min</small>
-                  </div>
-                </div>
-            {/* <h3 key={dish.id}>{dish.title}</h3> */}
-
+                  
+              </div>
+              
             </div>
-          </Link>
-
-          
+            <div className="d-flex justify-content-between align-items-center">
+              <small className="text-muted">
+                {Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
+              </small>
+            </div>
+            
+            
           </div>
-        )
-        break;
-      default:
-        dishesList = <b>Failed to load data, please press the filter button to complete your search</b>
-        console.log("update failed"+this.props)
-        break;
-    }
+        ))}
+        </div>
+    )
 
     return (
-      <div className="Dishes">
-        <h3>Dishes</h3>
-        <div className="row">
-          
-
-          {dishesList}
+      <div  id="menuRow" className="">
+        
+        <div className="d-flex justify-content-between">
+            <div className="p-2 flex-grow-1 bd-highlight">
+              <h3>My dinner:&nbsp;{this.state.numberOfGuests}&nbsp;people</h3>
+            </div>
+            <div className="p-2 flex-shrink-1 bd-highlight">
+              <div className="button">
+                  <Link to="/Search">
+                    <button type="button-center" className="btn btn-warning">
+                          Go back and edit dinner
+                      </button>
+                  </Link>
+              </div>
+            </div>  
         </div>
+        <div className="text-center">
+        
+          {dishesList}
+
+          Total cost: &nbsp; {Math.round(this.state.totalCost*this.props.model.getNumberOfGuests())}&nbsp;SEK
+          <div className="button">
+            <Link to="/Search">
+              <button type="button-center" className="btn btn-warning">
+                    Print full recipe
+                </button>
+            </Link>
+          </div>
+          </div>
       </div>
     );
   }

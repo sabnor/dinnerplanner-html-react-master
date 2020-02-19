@@ -12,7 +12,8 @@ class Sidebar extends Component {
     // we put on state the properties we want to use and modify in the component
     this.state = {
       numberOfGuests: this.props.model.getNumberOfGuests(),
-      menu: this.props.model.getMenu()
+      menu: this.props.model.getMenu(),
+      totalCost: 11
     }
   }
 
@@ -51,12 +52,11 @@ class Sidebar extends Component {
 
 
   let displayMenu = null;
+  let confirmDinnerButton = null;
   let totalCost = 0;
 
 
   this.state.menu.forEach(dish => {
-    // title = dish.title;
-    // cost = dish.cost;
     totalCost += dish.cost;
     console.log(dish.title, dish.cost);
   });
@@ -77,6 +77,35 @@ class Sidebar extends Component {
         </div>
   </div>
   )
+    
+      
+
+      if (this.state.menu.length == 0) {
+
+        confirmDinnerButton = (
+        <div className="button">
+          <Link to="/overview">
+            <button type="button-center" className="btn btn-warning" disabled>
+                  Confirm dinner
+              </button>
+          </Link>
+        </div>
+        )
+      } else {
+        confirmDinnerButton = (
+        <div className="button">
+          <Link to="/overview">
+            <button type="button-center" className="btn btn-warning">
+                  Confirm dinner
+              </button>
+          </Link>
+        </div>
+  )
+  
+      }
+      
+    
+  
 
 
     return (
@@ -87,16 +116,10 @@ class Sidebar extends Component {
         <br/>
         Total number of guests: {this.state.numberOfGuests}
         </p>
-       {displayMenu}
+        {displayMenu}
 
-       <div className="button">
-                  <Link to="/overview">
-                    <button type="button-center" className="btn btn-warning">
-                          Confirm dinner
-                      </button>
-                  </Link>
-                </div>
-      </div>
+        {confirmDinnerButton}
+       </div>
     );
   }
 }
