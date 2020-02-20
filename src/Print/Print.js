@@ -77,6 +77,7 @@ class Print extends Component {
     // depending on the state we either generate
     // useful message to the user or show the list
     // of returned dishes
+
     dishesList = (
       <div className="row">
       {this.state.menu.map((dish) => (
@@ -87,7 +88,15 @@ class Print extends Component {
               <div className="card-body">
                   <p className="card-text">{dish.title}</p>
               </div>
-              <div className="smallTitle"><h5>Ingredients:</h5><br/>{JSON.stringify(dish.ingredients)}</div>
+              <div className="smallTitle"><h5>Ingredients:</h5><br/>
+              {dish.ingredients.map((ingredient) => {
+              return (
+                <div>{Math.round(ingredient.amount*this.props.model.getNumberOfGuests())}&nbsp;{ingredient.unitShort}&nbsp;{ingredient.name}</div>
+              );
+              })}
+                
+
+              </div>
 
               <div className="smallTitle"><h5>Instructions:</h5><br/>{dish.instructions}</div>
 
@@ -127,11 +136,9 @@ class Print extends Component {
 
           Total cost: &nbsp; {Math.round(this.state.totalCost*this.props.model.getNumberOfGuests())}&nbsp;SEK
           <div className="button">
-            <Link to="/print">
-              <button type="button-center" className="btn btn-warning">
+              <button type="button-center" className="btn btn-warning" onClick={()=> {window.print();}}>
                     Print full recipe
                 </button>
-            </Link>
           </div>
           </div>
       </div>

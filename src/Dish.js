@@ -87,12 +87,14 @@ class Dishes extends Component {
   
 
         //Calculate total cost
-      let ingredientsss = dishDetails.extendedIngredients
+      let ingredientsss = dishDetails.extendedIngredients;
       let totalCost = 0;
-      let amount =""
+      let amount ="";
+      let ingredientList = [];
       ingredientsss.forEach(ingredient => {
         totalCost += ingredient.measures.metric.amount;
         amount = ingredient.measures.metric.amount
+        ingredientList.push({amount: ingredient.measures.metric.amount, unitShort: ingredient.measures.metric.unitShort, name: ingredient.name})
         
       });
       
@@ -120,7 +122,7 @@ class Dishes extends Component {
       )
 
 
-      this.state.menuObject = {title: dishDetails.title, cost: totalCost, image: dishDetails.image, ingredients: ingredients, instructions: dishDetails.instructions}
+      this.state.menuObject = {title: dishDetails.title, cost: totalCost, image: dishDetails.image, ingredients: ingredientList, instructions: dishDetails.instructions}
       console.log(dishDetails)
 
       // function addMenuClick(e) {
