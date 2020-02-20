@@ -86,6 +86,9 @@ class Sidebar extends Component {
     {this.state.menu.map((dish) => (
   
             <div>
+              <button type="button" className="close" aria-label="Close" onClick={()=> {this.props.model.removeFromMenu(dish);}}>
+                <span aria-hidden="true">&times;</span>
+              </button>
               {dish.title}&nbsp;{Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
             </div>
   

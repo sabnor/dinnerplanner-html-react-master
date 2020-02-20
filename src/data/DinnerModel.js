@@ -29,6 +29,12 @@ const DinnerModel = function () {
     menu = newMenu;
   }
 
+  this.removeFromMenu = function (dish) {
+    menu = menu.filter(o => o !== dish);
+    localStorage.setItem('menu', JSON.stringify(menu));
+    notifyObservers();
+  }
+
 
   this.getMenu = function () {
     return menu;
