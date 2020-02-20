@@ -12,7 +12,8 @@ class Sidebar extends Component {
     // we put on state the properties we want to use and modify in the component
     this.state = {
       numberOfGuests: this.props.model.getNumberOfGuests(),
-      menu: this.props.model.getMenu()
+      menu: this.props.model.getMenu(),
+      totalCost: 11
     }
   }
 
@@ -21,7 +22,20 @@ class Sidebar extends Component {
   // that's a good place to setup model observer
   componentDidMount() {
     this.props.model.addObserver(this)
-  }
+
+  //   if (localStorage.getItem('numberOfGuests')){
+  //     this.props.model.setNumberOfGuests(localStorage.getItem('numberOfGuests'));
+  //     }
+    
+  //   if (JSON.parse(localStorage.getItem('menu'))){
+  //     let parsedMenu = JSON.parse(localStorage.getItem('menu'));
+  //     console.log("Parsed menu: ", parsedMenu)
+  //     this.props.model.setMenu(parsedMenu);
+  //   }else{
+  //     console.log("No localStorage for menu");
+  //   }
+    
+   }
 
   // this is called when component is removed from the DOM
   // good place to remove observer
@@ -46,37 +60,91 @@ class Sidebar extends Component {
   
 
 
-
   render() {
 
 
   let displayMenu = null;
+  let confirmDinnerButton = null;
   let totalCost = 0;
-
-
-  this.state.menu.forEach(dish => {
-    // title = dish.title;
-    // cost = dish.cost;
-    totalCost += dish.cost;
-    console.log(dish.title, dish.cost);
-  });
-
-
-  displayMenu = (
-  <div id="menu">
-
-  {this.state.menu.map((dish) => (
-
-          <div>
-            {dish.title}&nbsp;{Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
+  
+  if (this.state.menu.length == 0) {
+    console.log("Menu is empty")
+    displayMenu = (
+      <div id="menu">
+        Add a dish to the menu
+      </div>
+    )
+  } else {
+    this.state.menu.forEach(dish => {
+      totalCost += dish.cost;
+      console.log(dish.title, dish.cost);
+    });
+  
+    displayMenu = (
+    <div id="menu">
+  
+    {this.state.menu.map((dish) => (
+  
+            <div>
+              {dish.title}&nbsp;{Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
+            </div>
+  
+        ))}
+            <div>TOTAL <p>{Math.round(totalCost*this.props.model.getNumberOfGuests())} SEK </p>
+            
           </div>
+    </div>
+    )
+  }
 
-      ))}
-          <div>TOTAL <p>{Math.round(totalCost*this.props.model.getNumberOfGuests())} SEK </p>
+  // this.state.menu.forEach(dish => {
+  //   totalCost += dish.cost;
+  //   console.log(dish.title, dish.cost);
+  // });
+
+  // displayMenu = (
+  // <div id="menu">
+
+  // {this.state.menu.map((dish) => (
+
+  //         <div>
+  //           {dish.title}&nbsp;{Math.round(dish.cost*this.props.model.getNumberOfGuests())} SEK
+  //         </div>
+
+  //     ))}
+  //         <div>TOTAL <p>{Math.round(totalCost*this.props.model.getNumberOfGuests())} SEK </p>
           
+  //       </div>
+  // </div>
+  // )
+    
+      
+      if (this.state.menu.length == 0) {
+
+        confirmDinnerButton = (
+        <div className="button">
+          <Link to="/overview">
+            <button type="button-center" className="btn btn-warning" disabled>
+                  Confirm dinner
+              </button>
+          </Link>
         </div>
-  </div>
+        )
+      } else {
+        confirmDinnerButton = (
+        <div className="button">
+          <Link to="/overview">
+            <button type="button-center" className="btn btn-warning">
+                  Confirm dinner
+              </button>
+          </Link>
+        </div>
   )
+  
+      }
+      
+    
+  
 
 
     return (
@@ -87,16 +155,10 @@ class Sidebar extends Component {
         <br/>
         Total number of guests: {this.state.numberOfGuests}
         </p>
-       {displayMenu}
+        {displayMenu}
 
-       <div className="button">
-                  <Link to="/overview">
-                    <button type="button-center" className="btn btn-warning">
-                          Confirm dinner
-                      </button>
-                  </Link>
-                </div>
-      </div>
+        {confirmDinnerButton}
+       </div>
     );
   }
 }

@@ -10,6 +10,7 @@ const DinnerModel = function () {
 
   this.setNumberOfGuests = function (num) {
     numberOfGuests = num;
+    localStorage.setItem('numberOfGuests', numberOfGuests);
     notifyObservers();
   };
 
@@ -20,9 +21,13 @@ const DinnerModel = function () {
   // Add menu
   this.setMenu = function (dish) {
     menu.push(dish);
-    console.log(menu);
+    localStorage.setItem('menu', JSON.stringify(menu));
     notifyObservers();
   };
+
+  this.overwriteMenu = function (newMenu) {
+    menu = newMenu;
+  }
 
 
   this.getMenu = function () {

@@ -92,7 +92,7 @@ class Dishes extends Component {
       ingredientsss.forEach(ingredient => {
         totalCost += ingredient.measures.metric.amount;
       });
-      this.state.menuObject = {title: dishDetails.title, cost: totalCost}
+      this.state.menuObject = {title: dishDetails.title, cost: totalCost, image: dishDetails.image}
       ingredients = (
 
       <div id="dishIngredients">
