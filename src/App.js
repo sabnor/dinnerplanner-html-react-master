@@ -15,7 +15,22 @@ class App extends Component {
     }
   }
 
+  
+
   render() {
+    if (localStorage.getItem('numberOfGuests')){
+      modelInstance.setNumberOfGuests(localStorage.getItem('numberOfGuests'));
+      }
+    
+    if (JSON.parse(localStorage.getItem('menu'))){
+      let parsedMenu = JSON.parse(localStorage.getItem('menu'));
+      console.log("Parsed menu: ", parsedMenu)
+      modelInstance.overwriteMenu(parsedMenu);
+    }else{
+      console.log("No localStorage for menu");
+    }
+    
+
     return (
       <div className="App">
         <header className="App-header fluid">
@@ -25,7 +40,6 @@ class App extends Component {
           <Route exact path="/" component={Welcome}/>
           <Route path="/search" render={() => <SelectDish model={modelInstance}/>}/>
           <Route path="/overview" render={() => <Overview model={modelInstance}/>}/>
-          {/* <Route path="/dish/:id" render={() => <Dish id={"12345hej"} model={modelInstance}/>}/> */}
           <Route path="/dish/:id" component={Dish}/>
           
         
