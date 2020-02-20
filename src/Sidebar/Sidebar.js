@@ -67,7 +67,7 @@ class Sidebar extends Component {
   let confirmDinnerButton = null;
   let totalCost = 0;
   
-  if (this.state.menu.length == 0) {
+  if (this.state.menu.length === 0) {
     console.log("Menu is empty")
     displayMenu = (
       <div id="menu">
@@ -119,7 +119,7 @@ class Sidebar extends Component {
   // )
     
       
-      if (this.state.menu.length == 0) {
+      if (this.state.menu.length === 0) {
 
         confirmDinnerButton = (
         <div className="button">

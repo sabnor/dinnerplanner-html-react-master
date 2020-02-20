@@ -89,10 +89,13 @@ class Dishes extends Component {
         //Calculate total cost
       let ingredientsss = dishDetails.extendedIngredients
       let totalCost = 0;
+      let amount =""
       ingredientsss.forEach(ingredient => {
         totalCost += ingredient.measures.metric.amount;
+        amount = ingredient.measures.metric.amount
+        
       });
-      this.state.menuObject = {title: dishDetails.title, cost: totalCost, image: dishDetails.image}
+      
       ingredients = (
 
       <div id="dishIngredients">
@@ -117,6 +120,9 @@ class Dishes extends Component {
       )
 
 
+      this.state.menuObject = {title: dishDetails.title, cost: totalCost, image: dishDetails.image, ingredients: ingredients, instructions: dishDetails.instructions}
+      console.log(dishDetails)
+
       // function addMenuClick(e) {
       //   e.preventDefault
       // }
@@ -139,7 +145,7 @@ class Dishes extends Component {
               <div className="p-2 flex-fill bd-highlight">
 
                 <div className="button">
-                  <Link to="/Search">
+                  <Link to="/search">
                     <button type="button-center" className="btn btn-warning">
                           Back to search
                       </button>

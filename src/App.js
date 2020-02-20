@@ -6,6 +6,8 @@ import { modelInstance } from './data/DinnerModel'
 import SelectDish from "./SelectDish/SelectDish";
 import Dish from "./Dish";
 import Overview from "./Overview/Overview";
+import Print from "./Print/Print";
+
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +42,7 @@ class App extends Component {
           <Route exact path="/" component={Welcome}/>
           <Route path="/search" render={() => <SelectDish model={modelInstance}/>}/>
           <Route path="/overview" render={() => <Overview model={modelInstance}/>}/>
+          <Route path="/print" render={() => <Print model={modelInstance}/>}/>
           <Route path="/dish/:id" component={Dish}/>
           
         

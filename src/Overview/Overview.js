@@ -83,8 +83,7 @@ class Overview extends Component {
             <div className="card mb-4 box-shadow">
               <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={dish.image} data-holder-rendered="true"/>
               <div className="card-body">
-                  <p className="card-text">{dish.title}</p>
-                  
+                  <p className="card-text">{dish.title}</p>                  
               </div>
               
             </div>
@@ -109,7 +108,7 @@ class Overview extends Component {
             </div>
             <div className="p-2 flex-shrink-1 bd-highlight">
               <div className="button">
-                  <Link to="/Search">
+                  <Link to="/search">
                     <button type="button-center" className="btn btn-warning">
                           Go back and edit dinner
                       </button>
@@ -123,9 +122,9 @@ class Overview extends Component {
 
           Total cost: &nbsp; {Math.round(this.state.totalCost*this.props.model.getNumberOfGuests())}&nbsp;SEK
           <div className="button">
-            <Link to="/Search">
+            <Link to="/print">
               <button type="button-center" className="btn btn-warning">
-                    Print full recipe
+                    View full recipe
                 </button>
             </Link>
           </div>
