@@ -1,14 +1,14 @@
 //Child to SelectDish-component
 
 import React, {Component} from 'react';
-import './Overview.css';
+import './Print.css';
 // Alternative to passing the moderl as the component property, 
 // we can import the model instance directly
 import {modelInstance} from '../data/DinnerModel';
 import { Link } from 'react-router-dom';
 
 
-class Overview extends Component {
+class Print extends Component {
   constructor(props) {
     super(props);
     console.log("dishes component init");
@@ -64,9 +64,10 @@ class Overview extends Component {
     modelInstance.addObserver(this);
   }
 
-  
 
+  
   render() {
+
     let dishesList = null;
 
     this.state.menu.forEach(dish => {
@@ -76,16 +77,29 @@ class Overview extends Component {
     // depending on the state we either generate
     // useful message to the user or show the list
     // of returned dishes
+
     dishesList = (
       <div className="row">
       {this.state.menu.map((dish) => (
+
           <div className="col-md-4">
             <div className="card mb-4 box-shadow">
               <img className="tumnagel card-img-top" alt="Thumbnail [100%x225]" src={dish.image} data-holder-rendered="true"/>
               <div className="card-body">
-                  <p className="card-text">{dish.title}</p>                  
+                  <p className="card-text">{dish.title}</p>
               </div>
-              
+              <div className="smallTitle"><h5>Ingredients:</h5><br/>
+              {dish.ingredients.map((ingredient) => {
+              return (
+                <div>{Math.round(ingredient.amount*this.props.model.getNumberOfGuests())}&nbsp;{ingredient.unitShort}&nbsp;{ingredient.name}</div>
+              );
+              })}
+                
+
+              </div>
+
+              <div className="smallTitle"><h5>Instructions:</h5><br/>{dish.instructions}</div>
+
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <small className="text-muted">
@@ -122,11 +136,9 @@ class Overview extends Component {
 
           Total cost: &nbsp; {Math.round(this.state.totalCost*this.props.model.getNumberOfGuests())}&nbsp;SEK
           <div className="button">
-            <Link to="/print">
-              <button type="button-center" className="btn btn-warning">
-                    View full recipe
+              <button type="button-center" className="btn btn-warning" onClick={()=> {window.print();}}>
+                    Print full recipe
                 </button>
-            </Link>
           </div>
           </div>
       </div>
@@ -134,4 +146,4 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+export default Print;

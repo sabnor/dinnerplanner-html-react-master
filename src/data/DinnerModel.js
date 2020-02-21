@@ -10,6 +10,7 @@ const DinnerModel = function () {
 
   this.setNumberOfGuests = function (num) {
     numberOfGuests = num;
+    localStorage.setItem('numberOfGuests', numberOfGuests);
     notifyObservers();
   };
 
@@ -20,9 +21,19 @@ const DinnerModel = function () {
   // Add menu
   this.setMenu = function (dish) {
     menu.push(dish);
-    console.log(menu);
+    localStorage.setItem('menu', JSON.stringify(menu));
     notifyObservers();
   };
+
+  this.overwriteMenu = function (newMenu) {
+    menu = newMenu;
+  }
+
+  this.removeFromMenu = function (dish) {
+    menu = menu.filter(o => o !== dish);
+    localStorage.setItem('menu', JSON.stringify(menu));
+    notifyObservers();
+  }
 
 
   this.getMenu = function () {
